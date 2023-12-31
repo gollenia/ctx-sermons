@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ctx-sermons/latest-sermon",
+	"title": "Latest Sermon",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "Show the last held sermon",
+	"attributes": {
+		"showTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"showImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSpeaker": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSeries": {
+			"type": "boolean",
+			"default": true
+		},
+		"showDescription": {
+			"type": "boolean",
+			"default": true
+		},
+		"showAudio": {
+			"type": "boolean",
+			"default": true
+		},
+		"showBiblePassage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSpeakerImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"limit": {
+			"type": "number",
+			"default": 1
+		},
+		"perRow": {
+			"type": "number",
+			"default": 1
+		},
+		"sermonSerie": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": true,
+		"color": {
+			"background": true,
+			"text": true
+		}
+	},
+	"textdomain": "ctx-sermons",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

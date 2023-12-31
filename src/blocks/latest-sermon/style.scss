@@ -1,0 +1,47 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-ctx-sermons {
+	background-color: #21759b;
+	color: #fff;
+	padding: 2px;
+}
+
+.ctx-latest-sermons {
+	display: grid;
+
+	.ctx-sermon {
+		img {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 16/9;
+			object-fit: cover;
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.ctx-latest-sermons.row-2,
+	.ctx-latest-sermons.row-3,
+	.ctx-latest-sermons.row-4 {
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 1.5rem;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.ctx-latest-sermons.row-2 {
+		grid-template-columns: 1fr 1fr;
+	}
+	.ctx-latest-sermons.row-3 {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	.ctx-latest-sermons.row-4 {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+}

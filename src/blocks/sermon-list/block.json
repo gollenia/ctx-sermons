@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ctx-sermons/sermon-list",
+	"version": "0.1.0",
+	"title": "Sermon List",
+	"category": "widgets",
+	"icon": "smiley",
+	"description": "A browsable list of sermons.",
+	"example": {},
+	"attributes": {
+		"paginationLimit": {
+			"type": "number",
+			"default": 5
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSpeaker": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSeries": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPassage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showAudio": {
+			"type": "boolean",
+			"default": true
+		},
+		"showVideo": {
+			"type": "boolean",
+			"default": true
+		},
+		"showNotes": {
+			"type": "boolean",
+			"default": true
+		},
+		"showDownload": {
+			"type": "boolean",
+			"default": true
+		},
+		"showShare": {
+			"type": "boolean",
+			"default": true
+		},
+		"showTranscript": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSeriesImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSpeakerImage": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "ctx-sermons",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "ctx-sermons-list"
+}
