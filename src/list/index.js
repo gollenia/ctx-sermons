@@ -1,24 +1,12 @@
 import apiFetch from "@wordpress/api-fetch";
 import { useEffect, useRef, useState } from "@wordpress/element";
+import { __ } from "@wordpress/i18n";
 import { addQueryArgs } from "@wordpress/url";
+import Modal from "./Components/Modal";
 import Pagination from "./Components/Pagination";
 import { ReactComponent as Play } from "./play.svg";
 import "./style.scss";
 const List = (props) => {
-	const [sermons, setSermons] = useState([]);
-	const [sermon, setSermon] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [maxPages, setMaxPages] = useState(1);
-	const [maxSermons, setMaxSermons] = useState(0);
-	const [query, setQuery] = useState({
-		page: 1,
-		sermon_series: "",
-		sermon_speaker: "",
-		per_page: 10,
-	});
-
-	const searchRef = useRef(null);
-
 	const {
 		attributes: {
 			showDate,
@@ -32,8 +20,38 @@ const List = (props) => {
 			limit,
 			perRow,
 			sermonSerie,
+			sermonSpeaker,
 		},
 	} = props;
+
+	const filter = [
+		showAudio ? "audio" : null,
+		showDate ? "date" : null,
+		showDescription ? "description" : null,
+		showImage ? "image" : null,
+		showSpeaker ? "speaker" : null,
+		showTitle ? "title" : null,
+		showSeries ? "series" : null,
+		showBiblePassage ? "bibleverse" : null,
+	].filter((item) => item !== null);
+
+	const [sermons, setSermons] = useState([]);
+	const [currentSermon, setCurrentSermon] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [maxPages, setMaxPages] = useState(1);
+	const [maxSermons, setMaxSermons] = useState(0);
+	const [currentSerie, setCurrentSerie] = useState();
+	const [currentSpeaker, setCurrentSpeaker] = useState();
+
+	const [query, setQuery] = useState({
+		page: 1,
+		sermon_series: sermonSerie ? sermonSerie : "",
+		sermon_speaker: sermonSpeaker ? sermonSpeaker : "",
+		per_page: 10,
+		filter: filter,
+	});
+
+	const searchRef = useRef(null);
 
 	useEffect(() => {
 		apiFetch({
@@ -50,20 +68,6 @@ const List = (props) => {
 		});
 	}, [query]);
 
-	const backdropClickHandler = (event) => {
-		event.preventDefault();
-		setSermon(null);
-	};
-
-	const filterSermons = (query) => {
-		return sermons.filter((sermon) => {
-			if (sermonSerie) {
-				return sermon.series[0] === sermonSerie;
-			}
-			return true;
-		});
-	};
-
 	const intlDate = (date) => {
 		const options = {
 			year: "numeric",
@@ -76,7 +80,12 @@ const List = (props) => {
 	const searchSubmit = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
-		setQuery({ ...query, search: searchRef.current.value });
+		setQuery({
+			...query,
+			search: searchRef.current.value,
+			sermon_series: undefined,
+			sermon_speaker: undefined,
+		});
 		return true;
 	};
 
@@ -88,6 +97,28 @@ const List = (props) => {
 					<button type="submit">Search</button>
 				</form>
 			</div>
+			{query.sermon_series && !sermonSerie && (
+				<div>
+					{query.sermon_series}
+					<a
+						href="#0"
+						onClick={() => setQuery({ ...query, sermon_series: undefined })}
+					>
+						{__("Clear", "ctx-sermons")}
+					</a>
+				</div>
+			)}
+			{query.sermon_speaker && !sermonSpeaker && (
+				<div>
+					{query.sermon_speaker}
+					<a
+						href="#0"
+						onClick={() => setQuery({ ...query, sermon_speaker: undefined })}
+					>
+						{__("Clear", "ctx-sermons")}
+					</a>
+				</div>
+			)}
 			<table>
 				<thead>
 					<tr>
@@ -119,7 +150,22 @@ const List = (props) => {
 									{sermon["speaker"] ? (
 										<td>
 											{sermon.speaker.map((preacher) => {
-												return preacher.name;
+												return (
+													<a
+														href="#0"
+														onClick={() => {
+															setQuery({
+																...query,
+																sermon_speaker: preacher.id,
+																sermon_series: undefined,
+																search: "",
+																page: 1,
+															});
+														}}
+													>
+														{preacher.name}
+													</a>
+												);
 											})}
 										</td>
 									) : (
@@ -132,7 +178,22 @@ const List = (props) => {
 									{sermon["series"] ? (
 										<td>
 											{sermon.series.map((serie) => {
-												return serie.name;
+												return (
+													<a
+														href="#0"
+														onClick={() => {
+															setQuery({
+																...query,
+																sermon_series: serie.id,
+																sermon_speaker: undefined,
+																search: "",
+																page: 1,
+															});
+														}}
+													>
+														{serie.name}
+													</a>
+												);
 											})}
 										</td>
 									) : (
@@ -148,7 +209,7 @@ const List = (props) => {
 									{sermon.audio ? (
 										<button
 											className="play-button"
-											onClick={() => setSermon(sermon)}
+											onClick={() => setCurrentSermon(sermon)}
 										>
 											<Play />
 										</button>
@@ -168,26 +229,8 @@ const List = (props) => {
 				maxPages={maxPages}
 				currentPage={query.page}
 			/>
-			<div
-				className={`ctx-sermon-player-modal ${sermon ? "is-open" : ""}`}
-				onClick={(event) => {
-					backdropClickHandler(event);
-				}}
-			>
-				<div className="window">
-					{sermon && sermon.audio && (
-						<div className="content">
-							<span onClick={() => setSermon(null)} className="close">
-								&times;
-							</span>
-							<h3>{sermon.title}</h3>
-							<audio controls src={sermon.audio}>
-								Listen
-							</audio>
-						</div>
-					)}
-				</div>
-			</div>
+
+			<Modal id={currentSermon ? currentSermon.id : null} />
 		</div>
 	);
 };

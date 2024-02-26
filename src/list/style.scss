@@ -1,3 +1,52 @@
+.ctx-sermons-sermon-list {
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	img {
+		width: 3rem;
+		height: 3rem;
+	}
+
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+		ul {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			li {
+				margin: 0 0.5rem;
+				a {
+					padding: 0.5rem;
+					border-radius: 0.25rem;
+					&.is-active {
+						background-color: #000;
+						color: #fff;
+					}
+				}
+			}
+		}
+		.search {
+			input {
+				padding: 0.5rem;
+				border-radius: 0.25rem;
+				border: 1px solid #000;
+				margin-right: 0.5rem;
+			}
+			button {
+				padding: 0.5rem;
+				border-radius: 0.25rem;
+				border: 1px solid #000;
+				background-color: #000;
+				color: #fff;
+			}
+		}
+	}
+}
+
 .ctx-sermon-player-modal {
 	position: fixed;
 	top: 0;
@@ -25,9 +74,34 @@
 		background-color: #fff;
 		padding: 1rem;
 		max-width: 800px;
+		width: 100%;
+		margin-left: 1rem;
+		margin-right: 1rem;
 		overflow-y: auto;
 		overflow-x: hidden;
 		position: relative;
+
+		.player-wrapper {
+			position: relative;
+			aspect-ratio: 21/9;
+			overflow: hidden;
+		}
+
+		img {
+			width: 100%;
+			aspect-ratio: 21/9;
+			object-fit: cover;
+			height: auto;
+		}
+
+		.player {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
 		.close {
 			position: absolute;
 			top: 0;
@@ -35,16 +109,5 @@
 			padding: 0.5rem;
 			cursor: pointer;
 		}
-	}
-}
-
-.ctx-sermons-sermon-list {
-	table {
-		width: 100%;
-		border-collapse: collapse;
-	}
-	img {
-		width: 3rem;
-		height: 3rem;
 	}
 }

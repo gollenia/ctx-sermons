@@ -47,17 +47,16 @@ class Sermons {
 	 * @return Sermons
 	 */
 	public static function by($taxonomy, $id, $offset = 0, $limit = 5) {
+
 		$instance = new self();
 		$instance->sermons = array();
-		if(empty($search)) {
-			return $instance;
-		}
-
+		
 		$posts = get_posts(array(
 			'post_type' => 'sermon',
-			'posts_per_page' => -1,
+			'posts_per_page' => $limit,
 			'offset' => $offset,
-			'orderby' => 'sermon_date',
+			'orderby' => '_sermon_date',
+			'meta_type' => 'DATE',
 			'order' => 'DESC',
 			'meta_query' => array(
 				array(
@@ -69,9 +68,9 @@ class Sermons {
 			),
 			'tax_query' => array(
 				array(
-					'taxonomy' => $id,
+					'taxonomy' => $taxonomy,
 					'field' => 'id',
-					'terms' => $taxonomy,
+					'terms' => $id,
 				)
 			)
 		));

@@ -8,12 +8,32 @@ class Sermon {
 	public $bibleverse;
 	public $series;
 	public $speaker;
+	public $image;
 	public $id;
 
 	public function __construct($post) {
+		
+		$audio_id = get_post_meta($post->ID, '_sermon_audio', true);
+		$audiometa = wp_get_attachment_metadata($audio_id);
+
+		$audio = $audiometa ? array(
+			'id' => $audio_id,
+			'url' => wp_get_attachment_url($audio_id),
+			'length' => $audiometa['length_formatted'],
+			'length_raw' => $audiometa['length'],
+			'filesize' => $audiometa['filesize'],
+			'fileformat' => $audiometa['fileformat'],
+		) : array();
+
 		$this->title = $post->post_title;
 		$this->date = get_post_meta($post->ID, '_sermon_date', true);
-		$this->audio = get_post_meta($post->ID, '_sermon_audio', true);
+		$this->audio = $audio;
+		$this->image = [
+			'thumbnail' => get_the_post_thumbnail_url($post->ID, 'thumbnail'),
+			'medium' => get_the_post_thumbnail_url($post->ID, 'medium'),
+			'large' => get_the_post_thumbnail_url($post->ID, 'large'),
+			'full' => get_the_post_thumbnail_url($post->ID, 'full'),
+		];
 		$this->bibleverse = get_post_meta($post->ID, '_sermon_bibleverse', true);
 		$this->series = $this->get_name_and_id(get_the_terms($post->ID, 'sermon_series'));
 		$this->speaker = $this->get_name_and_id(get_the_terms($post->ID, 'sermon_speaker'));
@@ -39,7 +59,9 @@ class Sermon {
 			return get_object_vars($this);
 		}
 
-		$filtered = array();
+		$filtered = array(
+			'id' => $this->id
+		);
 		$keys = get_object_vars($this);
 		foreach ($keys as $key => $value) {
 			if (in_array($key, $filter)) {

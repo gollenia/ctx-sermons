@@ -1,3 +1,5 @@
+import { __ } from "@wordpress/i18n";
+
 const Pagination = ({
 	postsPerPage,
 	totalPosts,
@@ -5,37 +7,54 @@ const Pagination = ({
 	currentPage,
 	maxPages,
 }) => {
+	const pageArray = [];
+
+	for (let i = 1; i <= maxPages; i++) {
+		pageArray.push(i);
+	}
+
+	console.log(pageArray);
+
 	return (
 		<nav>
 			<ul className="pagination">
 				<li className="page-item">
-					<a
+					<button
 						href="!#"
 						className="page-link"
 						onClick={() => onPaginate(currentPage - 1)}
+						disabled={currentPage === 1}
 					>
-						Previous
-					</a>
+						{__("Previous", "ctx-sermons")}
+					</button>
 				</li>
-				{[...Array(maxPages)].map((number) => (
+				{pageArray.map((number) => (
 					<li key={number} className="page-item">
-						<a
+						<button
 							onClick={() => onPaginate(number)}
 							href="!#"
 							className="page-link"
+							disabled={currentPage === number}
 						>
 							{number}
-						</a>
+						</button>
 					</li>
 				))}
 				<li className="page-item">
-					<a
+					<button
 						href="!#"
 						className="page-link"
 						onClick={() => onPaginate(currentPage + 1)}
+						disabled={currentPage === maxPages}
 					>
-						Next
-					</a>
+						{__("Next", "ctx-sermons")}
+					</button>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					{__("Page", "ctx-sermons")} {currentPage} {__("of", "ctx-sermons")}{" "}
+					{maxPages}
 				</li>
 			</ul>
 		</nav>
