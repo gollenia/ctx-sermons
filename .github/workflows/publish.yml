@@ -22,7 +22,7 @@ jobs:
             - name: rsync deployments
               uses: burnett01/rsync-deployments@6.0.0
               with:
-                  switches: -avzr --delete --exclude "*" --include latest.zip --include version.txt 
+                  switches: -avzr --delete --include latest.zip --include version.txt --exclude "*" 
                   path: /
                   remote_path: ${{ secrets.SERVER_PATH }}
                   remote_host: ${{ secrets.SERVER_NAME }}
