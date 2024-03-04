@@ -21,6 +21,7 @@ jobs:
                   directory: '../'
                   path: 'ctx-sermons'
                   exclusions: '*.git* /*node_modules/* .editorconfig src/* .github/* src'
+            - run: mv ../ctx-sermons.zip .
             - name: rsync deployments
               uses: burnett01/rsync-deployments@6.0.0
               with:
