@@ -17,12 +17,12 @@ jobs:
             - uses: thedoctor0/zip-release@0.7.5
               with:
                   type: 'zip'
-                  filename: 'latest.zip'
-                  exclusions: '*.git* /*node_modules/* .editorconfig src/* .github/*'
+                  filename: 'ctx-sermons.zip'
+                  exclusions: '*.git* /*node_modules/* .editorconfig src/* .github/* src'
             - name: rsync deployments
               uses: burnett01/rsync-deployments@6.0.0
               with:
-                  switches: -avzr --delete --include latest.zip --include version.txt --include "readme.md" --include "changelog.md" --exclude "*" 
+                  switches: -avzr --delete --include ctx-sermons.zip --include version.txt --include "readme.md" --include "changelog.md" --exclude "*" 
                   path: /
                   remote_path: ${{ secrets.SERVER_PATH }}
                   remote_host: ${{ secrets.SERVER_NAME }}
