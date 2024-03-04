@@ -97,12 +97,12 @@ const Cards = (props) => {
 									{showTitle && (
 										<h2 className="ctx-sermons-card-title">{sermon.title}</h2>
 									)}
-									{showSpeaker && (
+									{showSpeaker && sermon.speaker?.length > 0 && (
 										<p className="ctx-sermons-card-speaker">
 											{sermon.speaker[0].name}
 										</p>
 									)}
-									{showSeries && (
+									{showSeries && sermon.series?.length > 0 && (
 										<p className="ctx-sermons-card-series">
 											{__("Series", "ctx-sermons")}: {sermon.series[0].name}
 										</p>
