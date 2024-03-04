@@ -13,7 +13,7 @@ jobs:
                   node-version: "20.x"
             - run: npm ci
             - run: npm run build
-            - run: "cat ctx-sermons.php | grep -oP 'Version: \\K.*' >> version.txt"
+            - run: cat ctx-sermons.php | grep -m 1 -Pzo "(\/\*\*)(.|\n)*(\*\/)" >> version.txt
             - uses: thedoctor0/zip-release@0.7.5
               with:
                   type: 'zip'
@@ -22,7 +22,7 @@ jobs:
             - name: rsync deployments
               uses: burnett01/rsync-deployments@6.0.0
               with:
-                  switches: -avzr --delete --include latest.zip --include version.txt
+                  switches: -avzr --delete --exclude "*" --include latest.zip --include version.txt 
                   path: /
                   remote_path: ${{ secrets.SERVER_PATH }}
                   remote_host: ${{ secrets.SERVER_NAME }}
