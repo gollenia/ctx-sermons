@@ -18,6 +18,7 @@ jobs:
               with:
                   type: 'zip'
                   filename: 'ctx-sermons.zip'
+                  path: '../ctx-sermons'
                   exclusions: '*.git* /*node_modules/* .editorconfig src/* .github/* src'
             - name: rsync deployments
               uses: burnett01/rsync-deployments@6.0.0
