@@ -88,6 +88,7 @@ function ctx_sermons_init() {
 	);
 
 	wp_set_script_translations( "ctx-sermons-list", 'ctx-sermons', plugin_dir_path( __FILE__ ) . 'languages' );
+	wp_set_script_translations( "ctx-sermons-cards", 'ctx-sermons', plugin_dir_path( __FILE__ ) . 'languages' );
 }
 
 function ctx_sermons_load_textdomain() {
