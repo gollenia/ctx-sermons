@@ -1,14 +1,4 @@
 <?php
-/*
- * Plugin name: ctx Update Checker
- * Description: This simple plugin does nothing, only gets updates from a custom server
- * Version: 1.0
- * Author: ctx Rudrastyh
- * Author URI: https://rudrastyh.com
- * License: GPL
- */
-
-/**/
 
 namespace Contexis;
 
