@@ -1,11 +1,11 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "ctx-sermons/latest-sermon",
-	"title": "Latest Sermon",
+	"name": "ctx-sermons/sermon-cards",
+	"title": "Sermon Cards",
 	"category": "widgets",
 	"icon": "smiley",
-	"description": "Show the last held sermon",
+	"description": "Show sermons as Cards",
 	"attributes": {
 		"showTitle": {
 			"type": "boolean",
@@ -14,6 +14,10 @@
 		"showImage": {
 			"type": "boolean",
 			"default": true
+		},
+		"limit": {
+			"type": "number",
+			"default": 5
 		},
 		"showDate": {
 			"type": "boolean",
@@ -39,21 +43,21 @@
 			"type": "boolean",
 			"default": true
 		},
-		"showSpeakerImage": {
+		"showSeriesLink": {
 			"type": "boolean",
 			"default": true
 		},
-		"limit": {
-			"type": "number",
-			"default": 1
+		"showLink": {
+			"type": "boolean",
+			"default": true
 		},
-		"perRow": {
-			"type": "number",
-			"default": 1
-		},
-		"sermonSerie": {
+		"mediaId": {
 			"type": "number",
 			"default": 0
+		},
+		"mediaUrl": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"example": {},
@@ -63,10 +67,13 @@
 		"color": {
 			"background": true,
 			"text": true
-		}
+		},
+		"multiple": false
 	},
+	"editorScript": "ctx-sermons-admin",
 	"textdomain": "ctx-sermons",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
-	"render": "file:./render.php"
+	"editorStyle": "ctx-sermons-admin-style",
+	"style": "ctx-sermons-cards-style",
+
+	"viewScript": "ctx-sermons-cards"
 }

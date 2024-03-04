@@ -5,15 +5,18 @@ import React, {
 	useState,
 } from "@wordpress/element";
 
-import "./style.scss";
-
+import forward from "./forward.js";
+import pace from "./pace.js";
+import replay from "./replay.js";
+import volume from "./volume.js";
 function AudioPlayer(props) {
-	const { audio } = props;
+	const { audio, cover, title, artist, album } = props;
 	const audioElement = useRef(null);
 	const progressRange = useRef(null);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [showVolume, setShowVolume] = useState(false);
+	const [showSpeed, setShowSpeed] = useState(false);
 
 	const playAnimationRef = useRef(null);
 
@@ -26,7 +29,7 @@ function AudioPlayer(props) {
 			(audioElement.current.currentTime / audioElement.current.duration) * 100;
 		setCurrentTime(audioElement.current.currentTime);
 		playAnimationRef.current = requestAnimationFrame(repeat);
-		console.log(progressRange);
+
 		progressRange.current?.style?.setProperty(
 			"--seek-before-width",
 			`${timePercent}%`,
@@ -57,7 +60,19 @@ function AudioPlayer(props) {
 	};
 
 	const onLoadedMetadata = () => {
-		console.log(audioElement.current.duration);
+		console.log(title, artist, album);
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title,
+			artist,
+			album,
+			artwork: [
+				{
+					sizes: "640x360",
+					src: cover,
+					type: "",
+				},
+			],
+		});
 	};
 
 	return (
@@ -72,28 +87,6 @@ function AudioPlayer(props) {
 				}}
 			/>
 
-			<button
-				onClick={() => {
-					setIsPlaying(!isPlaying);
-				}}
-				id="play-icon"
-			>
-				<div className={`play-icon ${isPlaying ? "" : "play-icon-active"}`}>
-					<div className="play-icon__square"></div>
-					<div className="play-icon__triangle"></div>
-				</div>
-			</button>
-			<span id="current-time" class="time">
-				{calculateTime(currentTime)}
-			</span>
-			<button
-				onClick={() => {
-					setShowVolume(!showVolume);
-				}}
-				id="volume-icon"
-			>
-				VOL
-			</button>
 			<div>
 				<input
 					type="range"
@@ -108,26 +101,124 @@ function AudioPlayer(props) {
 					}}
 				/>
 			</div>
-			<span id="duration" class="time">
-				{calculateTime(audioElement.current?.duration)}
-			</span>
-			<div
-				className={`ctx-sermon-audio-player-volume ${
-					showVolume ? "is-open" : ""
-				}`}
-			>
-				<input
-					type="range"
-					id="volume-slider"
-					onChange={(event) => {
-						audioElement.current.volume = event.target.value / 100;
-					}}
-					max="100"
-					value="100"
-				/>
+			<div className="ctx-sermon-audio-player-time">
+				<span id="current-time" class="time">
+					{calculateTime(currentTime)}
+				</span>
+				<span id="duration" class="time">
+					{calculateTime(audioElement.current?.duration)}
+				</span>
 			</div>
-			<output id="volume-output">100</output>
-			<button id="mute-icon"></button>
+			<div className="ctx-sermon-audio-player-controls">
+				<div className="ctx-sermon-audio-player-buttons">
+					<div className="ctx-sermon-audio-player-speed ctx-sermon-audio-player-buttons-secondary">
+						<span onClick={() => setShowSpeed(!showSpeed)}>{pace}</span>
+						<div
+							className={`ctx-sermon-audio-player-speed-selection ${
+								showSpeed ? "is-open" : ""
+							}`}
+						>
+							<button
+								onClick={() => {
+									audioElement.current.playbackRate = 0.5;
+									setShowSpeed(false);
+								}}
+								className={
+									audioElement?.current?.playbackRate === 0.5 ? "active" : ""
+								}
+							>
+								0.5x
+							</button>
+							<button
+								onClick={() => {
+									audioElement.current.playbackRate = 1;
+									setShowSpeed(false);
+								}}
+								className={
+									audioElement?.current?.playbackRate === 1 ? "active" : ""
+								}
+							>
+								1x
+							</button>
+							<button
+								onClick={() => {
+									audioElement.current.playbackRate = 1.5;
+									setShowSpeed(false);
+								}}
+								className={
+									audioElement?.current?.playbackRate === 1.5 ? "active" : ""
+								}
+							>
+								1.5x
+							</button>
+							<button
+								onClick={() => {
+									audioElement.current.playbackRate = 2;
+									setShowSpeed(false);
+								}}
+								className={
+									audioElement?.current?.playbackRate === 2 ? "active" : ""
+								}
+							>
+								2x
+							</button>
+						</div>
+					</div>
+
+					<button
+						onClick={() => {
+							audioElement.current.currentTime -= 30 || 0;
+						}}
+						className="ctx-sermon-audio-player-buttons-secondary"
+					>
+						{replay}
+					</button>
+
+					<button
+						onClick={() => {
+							setIsPlaying(!isPlaying);
+						}}
+						id="play-icon"
+					>
+						<div className={`play-icon ${isPlaying ? "" : "play-icon-active"}`}>
+							<div className="play-icon__square"></div>
+							<div className="play-icon__triangle"></div>
+						</div>
+					</button>
+
+					<button
+						onClick={() => {
+							audioElement.current.currentTime += 30;
+						}}
+						className="ctx-sermon-audio-player-buttons-secondary"
+					>
+						{forward}
+					</button>
+					<div
+						className="ctx-sermon-audio-player-buttons-secondary ctx-sermon-audio-player-volume"
+						onClick={() => setShowVolume(!showVolume)}
+					>
+						<span>{volume}</span>
+						<div
+							className={`ctx-sermon-audio-player-volume-selection ${
+								showVolume ? "is-open" : ""
+							}`}
+						>
+							<input
+								type="range"
+								min="0"
+								max="1"
+								orient="vertical"
+								step="0.01"
+								value={audioElement.current?.volume}
+								onChange={(event) => {
+									audioElement.current.volume = event.target.value;
+								}}
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }

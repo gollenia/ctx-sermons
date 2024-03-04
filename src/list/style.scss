@@ -1,11 +1,44 @@
+@import "../common/player.scss";
 .ctx-sermons-sermon-list {
 	table {
+		table-layout: fixed;
 		width: 100%;
 		border-collapse: collapse;
+
+		tr {
+			&:hover {
+				background-color: color-mix(
+					in srgb,
+					var(--wp--preset--color--primary) 10%,
+					#fff
+				);
+			}
+
+			.date,
+			.title,
+			.speaker,
+			.series {
+				cursor: pointer;
+			}
+		}
+
+		th {
+			text-align: left;
+			padding: 0.5rem;
+			border-bottom: 1px solid #000;
+		}
+
+		td {
+			padding: 0.5rem;
+		}
 	}
 	img {
 		width: 3rem;
 		height: 3rem;
+	}
+
+	&-image {
+		width: 4rem;
 	}
 
 	nav {
@@ -18,6 +51,7 @@
 			justify-content: center;
 			align-items: center;
 			li {
+				list-style-type: none;
 				margin: 0 0.5rem;
 				a {
 					padding: 0.5rem;
@@ -45,69 +79,18 @@
 			}
 		}
 	}
-}
 
-.ctx-sermon-player-modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 9999;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 1rem;
-	overflow-y: auto;
-	opacity: 0;
-	visibility: hidden;
-	transition:
-		opacity 0.3s ease-in-out,
-		visibility 0.3s ease-in-out;
-	&.is-open {
-		opacity: 1;
-		visibility: visible;
-	}
-
-	.window {
-		background-color: #fff;
+	&-search {
 		padding: 1rem;
-		max-width: 800px;
-		width: 100%;
-		margin-left: 1rem;
-		margin-right: 1rem;
-		overflow-y: auto;
-		overflow-x: hidden;
-		position: relative;
+		background-color: #ddd;
 
-		.player-wrapper {
-			position: relative;
-			aspect-ratio: 21/9;
-			overflow: hidden;
+		form {
+			display: flex;
+			gap: 1rem;
 		}
 
-		img {
-			width: 100%;
-			aspect-ratio: 21/9;
-			object-fit: cover;
-			height: auto;
-		}
-
-		.player {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
-
-		.close {
-			position: absolute;
-			top: 0;
-			right: 0;
-			padding: 0.5rem;
-			cursor: pointer;
+		.reset {
+			margin-left: auto;
 		}
 	}
 }

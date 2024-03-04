@@ -15,6 +15,11 @@ const Pagination = ({
 
 	console.log(pageArray);
 
+	console.log(pageArray, maxPages);
+
+	if (!pageArray.length) {
+		return null;
+	}
 	return (
 		<nav>
 			<ul className="pagination">

@@ -3,6 +3,7 @@ import {
 	Card,
 	CardBody,
 	CardDivider,
+	CardFooter,
 	CardHeader,
 	CardMedia,
 } from "@wordpress/components";
@@ -22,6 +23,7 @@ export default function Edit(props) {
 		showSeries,
 		showDescription,
 		showImage,
+		showLink,
 		limit,
 		sermonSerie,
 	} = attributes;
@@ -53,13 +55,8 @@ export default function Edit(props) {
 
 			{latestSermons &&
 				latestSermons.map((latestSermon) => {
-					const image = select("core").getMedia(latestSermon?.featured_media);
-
-					const audio = select("core").getEntityRecord(
-						"postType",
-						"attachment",
-						latestSermon?.meta?._sermon_audio,
-					);
+					const image = latestSermon._embedded["wp:featuredmedia"]?.[0];
+					console.log(image);
 
 					const serie = select("core").getEntityRecord(
 						"taxonomy",
@@ -78,7 +75,10 @@ export default function Edit(props) {
 							{image && showImage && (
 								<CardMedia>
 									<img
-										src={image.media_details?.sizes?.large?.source_url}
+										src={
+											image.media_details?.sizes?.large?.source_url ||
+											image.source_url
+										}
 										alt={latestSermon.title.rendered}
 									/>
 								</CardMedia>
@@ -100,8 +100,17 @@ export default function Edit(props) {
 										}}
 									></p>
 								)}
-								{audio && showAudio && <audio controls src={audio.link} />}
 							</CardBody>
+							<CardFooter>
+								{showAudio && latestSermon?.meta?._sermon_audio && (
+									<button onClick={() => console.log(audio)}>
+										<i className="fas fa-play"></i>PLAY
+									</button>
+								)}
+								{showLink && latestSermon?.meta?._sermon_link && (
+									<a href={latestSermon.link}>Open</a>
+								)}
+							</CardFooter>
 							<CardDivider />
 						</Card>
 					);

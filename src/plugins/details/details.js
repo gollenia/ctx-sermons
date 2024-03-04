@@ -5,12 +5,11 @@
 /**
  * WordPress dependencies
  */
-import { TextControl } from "@wordpress/components";
+import { Button, TextControl } from "@wordpress/components";
 import { select } from "@wordpress/data";
 import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 
 import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
-import { Button } from "@wordpress/components";
 import { useEntityProp } from "@wordpress/core-data";
 import { useSelect } from "@wordpress/data";
 import { useState } from "@wordpress/element";
@@ -19,10 +18,10 @@ import { __ } from "@wordpress/i18n";
 
 const SermonMeta = () => {
 	const postType = select("core/editor").getCurrentPostType();
+	const [openDatePopup, setOpenDatePopup] = useState(false);
 
 	if (postType !== "sermon") return <></>;
 
-	const [dateOpen, setDateOpen] = useState(false);
 	const [meta, setMeta] = useEntityProp("postType", postType, "meta");
 
 	const file = useSelect(
@@ -34,6 +33,8 @@ const SermonMeta = () => {
 			),
 		[meta?._sermon_audio],
 	);
+
+	console.log(file);
 
 	return (
 		<PluginDocumentSettingPanel
@@ -52,15 +53,18 @@ const SermonMeta = () => {
 						<div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
 							{meta?._sermon_audio ? (
 								<>
-									<audio controls src={file?.link} />
+									<p>{file?.title?.rendered}</p>
 									<Button onClick={open} isSmall={true} variant="secondary">
 										{__("Change Audio", "ctx-sermons")}
 									</Button>
 								</>
 							) : (
-								<Button onClick={open} isSmall={true} variant="primary">
-									{__("Upload Audio", "ctx-sermons")}
-								</Button>
+								<div>
+									<p>{__("No audio file selected", "ctx-sermons")}</p>
+									<Button onClick={open} isSmall={true} variant="primary">
+										{__("Upload Audio", "ctx-sermons")}
+									</Button>
+								</div>
 							)}
 						</div>
 					)}
@@ -80,6 +84,14 @@ const SermonMeta = () => {
 				value={meta?._sermon_date}
 				onChange={(value) => {
 					setMeta({ _sermon_date: value });
+				}}
+			/>
+			<TextControl
+				type="url"
+				label={__("Link to Sermon", "ctx-sermons")}
+				value={meta?._sermon_link}
+				onChange={(value) => {
+					setMeta({ _sermon_link: value });
 				}}
 			/>
 		</PluginDocumentSettingPanel>

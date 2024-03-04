@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2023-12-29T09:26:40+00:00\n"
-"PO-Revision-Date: 2024-02-29 07:03+0000\n"
+"PO-Revision-Date: 2024-02-29 06:38+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: ctx-sermons\n"
 "Language: de_AT\n"
@@ -45,7 +45,7 @@ msgstr "Darstellung"
 msgid "Audio"
 msgstr "Audio"
 
-#: build/index.js:839 build/list.js:624 build/index.js:713 build/list.js:598
+#: build/index.js:839 build/list.js:620 build/index.js:713 build/list.js:595
 msgid "Bible verse"
 msgstr "Bibelvers"
 
@@ -81,6 +81,10 @@ msgstr "Aus den am häufigsten verwendeten Predigern auswählen"
 msgid "Choose from the most used series"
 msgstr "Aus den am häufigsten verwendeten Serien auswählen"
 
+#: build/list.js:612 build/list.js:618 build/list.js:572 build/list.js:583
+msgid "Clear"
+msgstr "Leeren"
+
 #: build/index.js:630 build/index.js:550
 msgid "Content"
 msgstr "Inhalt"
@@ -90,7 +94,7 @@ msgid "CTX Sermons"
 msgstr "CTX Sermons"
 
 #: lib/SermonPost.php:154 build/index.js:422 build/index.js:848
-#: build/list.js:624 build/index.js:370 build/index.js:721 build/list.js:594
+#: build/list.js:620 build/index.js:370 build/index.js:721 build/list.js:591
 msgid "Date"
 msgstr "Datum"
 
@@ -175,7 +179,7 @@ msgstr "Öffnen"
 msgid "Page"
 msgstr "Seite"
 
-#: lib/SermonPost.php:118 build/list.js:624 build/list.js:596
+#: lib/SermonPost.php:118 build/list.js:620 build/list.js:593
 msgid "Preacher"
 msgstr "Prediger"
 
@@ -195,26 +199,17 @@ msgstr "Vorherige"
 msgid "Replace Image"
 msgstr "Bild austauschen"
 
-#: build/list.js:622 build/list.js:583
-msgid "Reset"
-msgstr "Zurücksetzen"
-
-#: build/list.js:610 build/list.js:567
+#: build/list.js:606 build/list.js:562
 msgid "Search"
-msgstr "Suchen"
-
-#: build/list.js:606 build/list.js:563
-msgid "Search term"
-msgstr "Suchbegriff"
+msgstr ""
 
 #: build/index.js:610 build/index.js:522
 msgid "Select an image to display when the sermon has no own"
 msgstr ""
-"Wählen Sie ein Bild aus, das angezeigt wird, wenn die Predigt keines hat"
 
 #: build/index.js:269 build/index.js:628 build/index.js:246 build/index.js:543
 msgid "Select Image"
-msgstr "Bild auswählen"
+msgstr ""
 
 #: lib/SermonPost.php:126
 msgid "Separate preachers with commas"
@@ -225,7 +220,7 @@ msgid "Separate series with commas"
 msgstr "Serien mit Kommas trennen"
 
 #: lib/SermonPost.php:152 build/cards.js:174 build/index.js:422
-#: build/list.js:624 build/cards.js:140 build/index.js:373 build/list.js:597
+#: build/list.js:620 build/cards.js:140 build/index.js:373 build/list.js:594
 msgid "Series"
 msgstr "Serie"
 
@@ -302,8 +297,8 @@ msgstr "Prediger"
 msgid "Thomas Gollenia"
 msgstr "Thomas Gollenia"
 
-#: lib/SermonPost.php:151 build/index.js:422 build/list.js:624
-#: build/index.js:371 build/list.js:595
+#: lib/SermonPost.php:151 build/index.js:422 build/list.js:620
+#: build/index.js:371 build/list.js:592
 msgid "Title"
 msgstr "Titel"
 

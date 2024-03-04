@@ -1,9 +1,6 @@
-import SermonDetails from "./plugins/details/details";
-
-import * as latestSermon from "./blocks/latest-sermon";
+import * as latestSermon from "./blocks/sermon-cards";
 import * as sermonList from "./blocks/sermon-list";
-
-const { registerPlugin } = wp.plugins;
+import SermonDetails from "./plugins/details/details";
 
 const { registerBlockType } = wp.blocks;
 
@@ -18,7 +15,7 @@ export const registerBlocks = () => {
 };
 
 registerBlocks();
-
+const { registerPlugin } = wp.plugins;
 registerPlugin("plugin-sermon-details", {
 	icon: null,
 	render: SermonDetails,

@@ -1,0 +1,21 @@
+@import "../common/player.scss";
+
+.ctx-sermons-card {
+	background: #fff;
+	img {
+		width: 100%;
+		aspect-ratio: 16/9;
+	}
+
+	&-content {
+		padding: 1rem;
+		position: relative;
+	}
+
+	&-footer {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		padding: 1rem;
+	}
+}

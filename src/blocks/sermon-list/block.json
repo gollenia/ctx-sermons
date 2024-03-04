@@ -21,6 +21,14 @@
 			"type": "boolean",
 			"default": true
 		},
+		"mediaId": {
+			"type": "number",
+			"default": 0
+		},
+		"mediaUrl": {
+			"type": "string",
+			"default": ""
+		},
 		"showSeries": {
 			"type": "boolean",
 			"default": true
@@ -49,6 +57,14 @@
 			"type": "boolean",
 			"default": true
 		},
+		"showImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLink": {
+			"type": "boolean",
+			"default": true
+		},
 		"showTranscript": {
 			"type": "boolean",
 			"default": true
@@ -66,7 +82,8 @@
 		"html": false
 	},
 	"textdomain": "ctx-sermons",
-	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css",
+	"editorStyle": "ctx-sermons-admin-style",
+	"editorScript": "ctx-sermons-admin",
+	"style": "ctx-sermons-list-style",
 	"viewScript": "ctx-sermons-list"
 }

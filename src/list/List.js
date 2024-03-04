@@ -2,9 +2,8 @@ import apiFetch from "@wordpress/api-fetch";
 import { useEffect, useRef, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { addQueryArgs } from "@wordpress/url";
-import Modal from "./Components/Modal";
+import Modal from "../common/Modal";
 import Pagination from "./Components/Pagination";
-import { ReactComponent as Play } from "./play.svg";
 import "./style.scss";
 const List = (props) => {
 	const {
@@ -16,24 +15,17 @@ const List = (props) => {
 			showSeries,
 			showDescription,
 			showImage,
+			showLink,
 			showBiblePassage,
 			limit,
 			perRow,
 			sermonSerie,
 			sermonSpeaker,
+			mediaId,
 		},
 	} = props;
 
-	const filter = [
-		showAudio ? "audio" : null,
-		showDate ? "date" : null,
-		showDescription ? "description" : null,
-		showImage ? "image" : null,
-		showSpeaker ? "speaker" : null,
-		showTitle ? "title" : null,
-		showSeries ? "series" : null,
-		showBiblePassage ? "bibleverse" : null,
-	].filter((item) => item !== null);
+	const filter = [].filter((item) => item !== null);
 
 	const [sermons, setSermons] = useState([]);
 	const [currentSermon, setCurrentSermon] = useState(null);
@@ -42,13 +34,13 @@ const List = (props) => {
 	const [maxSermons, setMaxSermons] = useState(0);
 	const [currentSerie, setCurrentSerie] = useState();
 	const [currentSpeaker, setCurrentSpeaker] = useState();
+	const [mediaThumbnail, setMediaThumbnail] = useState("");
 
 	const [query, setQuery] = useState({
 		page: 1,
 		sermon_series: sermonSerie ? sermonSerie : "",
 		sermon_speaker: sermonSpeaker ? sermonSpeaker : "",
 		per_page: 10,
-		filter: filter,
 	});
 
 	const searchRef = useRef(null);
@@ -59,14 +51,28 @@ const List = (props) => {
 			method: "GET",
 			parse: false,
 		}).then((response) => {
-			setMaxPages(response.headers.get("X-WP-TotalPages"));
-			setMaxSermons(response.headers.get("X-WP-Total"));
+			setMaxPages(parseInt(response.headers.get("X-WP-TotalPages")));
+			setMaxSermons(parseInt(response.headers.get("X-WP-Total")));
 			response.json().then((data) => {
 				setSermons(data);
 				setLoading(false);
 			});
 		});
 	}, [query]);
+
+	useEffect(() => {
+		apiFetch({
+			path: `/wp/v2/media/${mediaId}`,
+			method: "GET",
+			parse: false,
+		}).then((response) => {
+			response.json().then((data) => {
+				setMediaThumbnail(data.media_details.sizes);
+			});
+		});
+	}, []);
+
+	const altImage = mediaThumbnail?.thumbnail?.source_url;
 
 	const intlDate = (date) => {
 		const options = {
@@ -89,62 +95,97 @@ const List = (props) => {
 		return true;
 	};
 
+	const openSermon = (sermon) => {
+		if (sermon.audio) setCurrentSermon(sermon);
+		if (sermon.link) window.open(sermon.link, "_blank");
+	};
+
 	return (
 		<div className="ctx-sermons-sermon-list">
-			<div>
+			<div className="ctx-sermons-sermon-list-search">
 				<form onSubmit={(event) => searchSubmit(event)}>
-					<input ref={searchRef} type="search" />
-					<button type="submit">Search</button>
+					<div className="input">
+						<input
+							ref={searchRef}
+							type="search"
+							placeholder={__("Search term", "ctx-sermons")}
+						/>
+					</div>
+					<button className="button button--primary" type="submit">
+						{__("Search", "ctx-sermons")}
+					</button>
+					<div className="spacer"></div>
+					{(query.sermon_series || query.sermon_speaker) && (
+						<div className="reset">
+							<a
+								href="#0"
+								className="button button--secondary"
+								onClick={() =>
+									setQuery({
+										...query,
+										sermon_series: undefined,
+										sermon_speaker: undefined,
+									})
+								}
+							>
+								{__("Reset", "ctx-sermons")}
+							</a>
+						</div>
+					)}
 				</form>
 			</div>
-			{query.sermon_series && !sermonSerie && (
-				<div>
-					{query.sermon_series}
-					<a
-						href="#0"
-						onClick={() => setQuery({ ...query, sermon_series: undefined })}
-					>
-						{__("Clear", "ctx-sermons")}
-					</a>
-				</div>
-			)}
-			{query.sermon_speaker && !sermonSpeaker && (
-				<div>
-					{query.sermon_speaker}
-					<a
-						href="#0"
-						onClick={() => setQuery({ ...query, sermon_speaker: undefined })}
-					>
-						{__("Clear", "ctx-sermons")}
-					</a>
-				</div>
-			)}
+
 			<table>
 				<thead>
 					<tr>
-						{showImage && <th>Image</th>}
-						{showDate && <th>Date</th>}
-						{showTitle && <th>Title</th>}
-						{showSpeaker && <th>Speaker</th>}
-						{showSeries && <th>Series</th>}
-						{showBiblePassage && <th>Bible Passage</th>}
-						{showAudio && <th></th>}
+						{showImage && <th className="ctx-sermons-sermon-list-image"></th>}
+						{showDate && <th>{__("Date", "ctx-sermons")}</th>}
+						{showTitle && <th>{__("Title", "ctx-sermons")}</th>}
+						{showSpeaker && <th>{__("Preacher", "ctx-sermons")}</th>}
+						{showSeries && <th>{__("Series", "ctx-sermons")}</th>}
+						{showBiblePassage && <th>{__("Bible verse", "ctx-sermons")}</th>}
 					</tr>
 				</thead>
 				<tbody>
 					{sermons.map((sermon) => (
 						<tr key={sermon.id}>
 							{showImage && (
-								<td>
-									{sermon.image ? (
-										<img src={sermon.image} alt={sermon.title} />
+								<td
+									onClick={() => {
+										openSermon(sermon);
+									}}
+									className="ctx-sermons-sermon-list-image"
+								>
+									{sermon.image.thumbnail || altImage ? (
+										<img
+											src={sermon.image.thumbnail || altImage}
+											alt={sermon.title}
+										/>
 									) : (
-										<td></td>
+										<></>
 									)}
 								</td>
 							)}
-							{showDate && <td>{intlDate(sermon.date)}</td>}
-							{showTitle && <td>{sermon.title}</td>}
+							{showDate && (
+								<td
+									className="date"
+									onClick={() => {
+										openSermon(sermon);
+									}}
+								>
+									{intlDate(sermon.date)}
+								</td>
+							)}
+							{showTitle && (
+								<td
+									className="title"
+									onClick={() => {
+										openSermon(sermon);
+									}}
+								>
+									{sermon.title}
+								</td>
+							)}
 							{showSpeaker && (
 								<>
 									{sermon["speaker"] ? (
@@ -204,20 +245,6 @@ const List = (props) => {
 							{showBiblePassage && (
 								<td>{sermon.bibleverse ? sermon.bibleverse : <td></td>}</td>
 							)}
-							{showAudio && (
-								<td>
-									{sermon.audio ? (
-										<button
-											className="play-button"
-											onClick={() => setCurrentSermon(sermon)}
-										>
-											<Play />
-										</button>
-									) : (
-										<td></td>
-									)}
-								</td>
-							)}
 						</tr>
 					))}
 				</tbody>
@@ -230,7 +257,11 @@ const List = (props) => {
 				currentPage={query.page}
 			/>
 
-			<Modal id={currentSermon ? currentSermon.id : null} />
+			<Modal
+				sermon={currentSermon}
+				setSermon={setCurrentSermon}
+				altImage={mediaThumbnail}
+			/>
 		</div>
 	);
 };

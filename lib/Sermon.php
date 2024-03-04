@@ -6,6 +6,7 @@ class Sermon {
 	public $date;
 	public $audio;
 	public $bibleverse;
+	public $link;
 	public $series;
 	public $speaker;
 	public $image;
@@ -23,18 +24,19 @@ class Sermon {
 			'length_raw' => $audiometa['length'],
 			'filesize' => $audiometa['filesize'],
 			'fileformat' => $audiometa['fileformat'],
-		) : array();
+		) : false;
 
 		$this->title = $post->post_title;
 		$this->date = get_post_meta($post->ID, '_sermon_date', true);
 		$this->audio = $audio;
 		$this->image = [
-			'thumbnail' => get_the_post_thumbnail_url($post->ID, 'thumbnail'),
-			'medium' => get_the_post_thumbnail_url($post->ID, 'medium'),
-			'large' => get_the_post_thumbnail_url($post->ID, 'large'),
-			'full' => get_the_post_thumbnail_url($post->ID, 'full'),
+			'thumbnail' => get_the_post_thumbnail_url($post->ID, 'thumbnail') ?: get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
+			'medium' => get_the_post_thumbnail_url($post->ID, 'medium') ?: get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+			'large' => get_the_post_thumbnail_url($post->ID, 'large') ?: get_the_post_thumbnail_url(get_the_ID(), 'large'),
+			'full' => get_the_post_thumbnail_url($post->ID, 'full') ?: get_the_post_thumbnail_url(get_the_ID(), 'full')
 		];
 		$this->bibleverse = get_post_meta($post->ID, '_sermon_bibleverse', true);
+		$this->link = get_post_meta($post->ID, '_sermon_link', true);
 		$this->series = $this->get_name_and_id(get_the_terms($post->ID, 'sermon_series'));
 		$this->speaker = $this->get_name_and_id(get_the_terms($post->ID, 'sermon_speaker'));
 		$this->id = $post->ID;

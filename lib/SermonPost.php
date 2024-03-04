@@ -10,12 +10,14 @@ class SermonPost {
 		add_action('init', array($this, 'create_post_type'));
 		add_action('init', array($this, 'register_sermon_taxonomies'));
 		add_action('rest_api_init', array($this, 'register_sermon_meta'));
-		
+		add_action( 'admin_menu' , array($this, 'remove_custom_meta_form'));
 		add_filter('manage_sermon_posts_columns', array($this, 'sermon_columns'));
 		add_action('manage_sermon_posts_custom_column', array($this, 'sermon_custom_columns'));
 	}
 
 	public function create_post_type() {
+
+		$menu_icon = file_get_contents(plugin_dir_path(__FILE__) . '../sermons.svg');
 		register_post_type('sermon', array(
 			'labels' => array(
 				'name' => __('Sermons', 'ctx-sermons'),
@@ -23,7 +25,7 @@ class SermonPost {
 			),
 			'description' => 'Sermons from the church.',
 			'menu_position' => 5,
-			'menu_icon' => "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='24px' height='24px' stroke-width='1.5' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' color='%23000000'%3E%3Cpath d='M12 6L4.282 10.8237C4.10657 10.9334 4 11.1257 4 11.3325V21.4C4 21.7314 4.26863 22 4.6 22H12M12 6L19.718 10.8237C19.8934 10.9334 20 11.1257 20 11.3325V21.4C20 21.7314 19.7314 22 19.4 22H12M12 6V4M12 2V4M10 4H12M12 4H14M12 22V17' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M16 17.01L16.01 16.9989' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M16 13.01L16.01 12.9989' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M12 13.01L12.01 12.9989' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M8 13.01L8.01 12.9989' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3Cpath d='M8 17.01L8.01 16.9989' stroke='%23000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3C/svg%3E",
+			"menu_icon" => 'dashicons-microphone',
 			'exclude_from_search' => false,
 			'publicly_queryable' => true,
 			'query_var' => 'sermon',
@@ -33,7 +35,7 @@ class SermonPost {
 			'public' => true,
 			'has_archive' => true,
 			'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-			'taxonomies' => array('category', 'post_tag')
+			
 		));
 	}
 
@@ -68,18 +70,43 @@ class SermonPost {
 				return current_user_can( 'edit_posts' );
 			},
 		));
+
+		register_post_meta('sermon', '_sermon_link', array(
+			'show_in_rest' => true,
+			'single' => true,
+			'type' => 'string',
+			'sanitize_callback' => function($value) {
+				return esc_url_raw($value);
+			},
+			'auth_callback' => function() {
+				return current_user_can( 'edit_posts' );
+			},
+		));
 	}
 
 	public function register_sermon_taxonomies() {
 		register_taxonomy('sermon_series', 'sermon', array(
 			'labels' => array(
 				'name' => __('Sermon Series', 'ctx-sermons'),
-				'singular_name' => __('Sermon Series', 'ctx-sermons')
+				'singular_name' => __('Sermon Series', 'ctx-sermons'),
+				'add_new_item' => __('Add New Serie', 'ctx-sermons'),
+				'new_item_name' => __('Series Name', 'ctx-sermons'),
+				'name_field_description' => 'Series Name',
+				'slug_field_description' => 'Slug of the Series',
+				'edit_item' => __('Edit Series', 'ctx-sermons'),
+				'update_item' => __('Update Series', 'ctx-sermons'),
+				'view_item' => __('View Series', 'ctx-sermons'),
+				'separate_items_with_commas' => __('Separate series with commas', 'ctx-sermons'),
+				'add_or_remove_items' => __('Add or remove series', 'ctx-sermons'),
+				'choose_from_most_used' => __('Choose from the most used series', 'ctx-sermons'),
+				'not_found' => __('No series found', 'ctx-sermons'),
+				'no_terms' => __('No series', 'ctx-sermons'),
 			),
 			'public' => true,
 			'show_in_rest' => true,
 			'hierarchical' => true,
 			'show_admin_column' => true,
+			'meta_box_cb' => false,
 			'show_ui' => true,
 			'show_in_nav_menus' => true,
 			'show_tagcloud' => true
@@ -87,9 +114,20 @@ class SermonPost {
 
 		register_taxonomy('sermon_speaker', 'sermon', array(
 			'labels' => array(
-				'name' => __('Sermon Speakers', 'ctx-sermons'),
-				'singular_name' => __('Sermon Speaker', 'ctx-sermons'),
-				'add_new_item' => __('Add New Sermon Speaker', 'ctx-sermons'),
+				'name' => __('Preachers', 'ctx-sermons'),
+				'singular_name' => __('Preacher', 'ctx-sermons'),
+				'add_new_item' => __('Add New Preacher', 'ctx-sermons'),
+				'new_item_name' => __('Preacher Name', 'ctx-sermons'),
+				'name_field_description' => 'Speaker\'s Name',
+				'slug_field_description' => 'Slug of the Preacher',
+				'edit_item' => __('Edit Preacher', 'ctx-sermons'),
+				'update_item' => __('Update Preacher', 'ctx-sermons'),
+				'view_item' => __('View Preacher', 'ctx-sermons'),
+				'separate_items_with_commas' => __('Separate preachers with commas', 'ctx-sermons'),
+				'add_or_remove_items' => __('Add or remove preachers', 'ctx-sermons'),
+				'choose_from_most_used' => __('Choose from the most used preachers', 'ctx-sermons'),
+				'not_found' => __('No preachers found', 'ctx-sermons'),
+				'no_terms' => __('No preachers', 'ctx-sermons'),
 			),
 			'public' => true,
 			'show_in_rest' => true,
@@ -97,19 +135,26 @@ class SermonPost {
 			'show_ui' => true,
 			'show_admin_column' => true,
 			'show_in_nav_menus' => true,
-			'show_tagcloud' => true
+			'show_tagcloud' => false
 		));
+	}
+
+	public function remove_custom_meta_form() {
+		remove_meta_box('postcustom', 'sermon', 'normal');
 	}
 
 	public function sermon_columns($columns) {
 		$columns = array(
+			
 			'cb' => '<input type="checkbox" />',
+			'image' => '',
 			'title' => __('Title', 'ctx-sermons'),
 			'sermon_series' => __('Series', 'ctx-sermons'),
 			'sermon_speaker' => __('Speaker', 'ctx-sermons'),
 			'sermon_date' => __('Date', 'ctx-sermons'),
-			'date' => __('Date', 'ctx-sermons')
 		);
+
+		
 		return $columns;
 	}
 
@@ -135,16 +180,23 @@ class SermonPost {
 			case 'sermon_date':
 				$sermon_date = get_post_meta($post->ID, '_sermon_date', true);
 				if (!empty($sermon_date)) {
-					echo $sermon_date;
+					echo wp_date(get_option( 'date_format' ), strtotime($sermon_date));
 				} else {
 					_e('No date', 'ctx-sermons');
 				}
 				break;
+			case 'image':
+				$thumbnail_id = get_post_thumbnail_id($post->ID);
+				if ($thumbnail_id) {
+					$thumbnail = wp_get_attachment_image_src($thumbnail_id, 'thumbnail', false);
+					echo '<img src="' . esc_url($thumbnail[0]) . '" alt="' . esc_attr($post->post_title) . '" style="max-width:48px;"/>';
+				} else {
+					echo '<div class="sermon-icon" style="background: #ccc; width: 48px; height: 48px; display: grid; place-content: center"><div class="dashicons dashicons-microphone"></div></div>';
+					echo '<style>.sermon-icon .dashicons {font-size: 24px;} .column-image {width: 3rem; }</style>';
+				}
+				break;
 		}
 	}
-
-	
-
 }
 
 SermonPost::init();

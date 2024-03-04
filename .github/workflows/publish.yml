@@ -1,0 +1,30 @@
+name: Publish on kids-team Update Server
+
+on: [push, workflow_dispatch]
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+    # This workflow contains a single job called "greet"
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: "20.x"
+            - run: npm ci
+            - run: npm run build
+            - run: "cat ctx-sermons.php | grep -oP 'Version: \\K.*' >> version.txt"
+            - uses: thedoctor0/zip-release@0.7.5
+              with:
+                  type: 'zip'
+                  filename: 'latest.zip'
+                  exclusions: '*.git* /*node_modules/* .editorconfig src/* .github/*'
+            - name: rsync deployments
+              uses: burnett01/rsync-deployments@6.0.0
+              with:
+                  switches: -avzr --delete --include latest.zip --include version.txt
+                  path: /
+                  remote_path: ${{ secrets.SERVER_PATH }}
+                  remote_host: ${{ secrets.SERVER_NAME }}
+                  remote_user: ${{ secrets.SERVER_USER }}
+                  remote_key: ${{ secrets.SERVER_KEY }}

@@ -1,8 +1,9 @@
 import { createRoot } from "@wordpress/element";
-import List from "./list/List";
+import Cards from "./cards/Cards";
+console.log("cards.js");
 document.addEventListener("DOMContentLoaded", function () {
-	const rootElement = document.getElementById("sermon-list");
+	const rootElement = document.getElementById("ctx-sermon-cards");
 	const attributes = JSON.parse(rootElement.dataset.attributes);
 	if (!rootElement) return;
-	createRoot(rootElement).render(<List attributes={attributes} />);
+	createRoot(rootElement).render(<Cards attributes={attributes} />);
 });

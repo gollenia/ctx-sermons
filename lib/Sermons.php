@@ -98,8 +98,18 @@ class Sermons {
 		$posts = get_posts(array(
 			'post_type' => 'sermon',
 			'posts_per_page' => -1,
-			'orderby' => 'date',
+			'orderby' => '_sermon_date',
 			'order' => 'DESC',
+			'meta_type' => 'DATE',
+			'order' => 'DESC',
+			'meta_query' => array(
+				array(
+					'key' => '_sermon_date',
+					'value' => date('Y-m-d'),
+					'compare' => '<=',
+					'type' => 'DATE'
+				)
+			),
 			's' => $search,
 		));
 
@@ -108,8 +118,18 @@ class Sermons {
 		$preachers = get_posts(array(
 			'post_type' => 'sermon',
 			'posts_per_page' => -1,
-			'orderby' => 'date',
+			'orderby' => '_sermon_date',
 			'order' => 'DESC',
+			'meta_type' => 'DATE',
+			'order' => 'DESC',
+			'meta_query' => array(
+				array(
+					'key' => '_sermon_date',
+					'value' => date('Y-m-d'),
+					'compare' => '<=',
+					'type' => 'DATE'
+				)
+			),
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'sermon_speaker',
@@ -125,8 +145,18 @@ class Sermons {
 		$series = get_posts(array(
 			'post_type' => 'sermon',
 			'posts_per_page' => -1,
-			'orderby' => 'date',
+			'orderby' => '_sermon_date',
 			'order' => 'DESC',
+			'meta_type' => 'DATE',
+			'order' => 'DESC',
+			'meta_query' => array(
+				array(
+					'key' => '_sermon_date',
+					'value' => date('Y-m-d'),
+					'compare' => '<=',
+					'type' => 'DATE'
+				)
+			),
 			'tax_query' => array(
 				array(
 					'taxonomy' => 'sermon_series',

@@ -1,6 +1,7 @@
 import { InspectorControls } from "@wordpress/block-editor";
 
-import { CheckboxControl, PanelBody } from "@wordpress/components";
+import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
+import { Button, CheckboxControl, PanelBody } from "@wordpress/components";
 
 import { useSelect } from "@wordpress/data";
 
@@ -15,9 +16,12 @@ export default function Inspector({ attributes, setAttributes }) {
 		showSeries,
 		showDescription,
 		showImage,
+		showLink,
 		showBiblePassage,
 		limit,
 		perRow,
+		mediaId,
+		mediaUrl,
 		sermonSerie,
 	} = attributes;
 
@@ -51,48 +55,85 @@ export default function Inspector({ attributes, setAttributes }) {
 		setAttributes({ sermonSerie: value });
 	};
 
+	const ALLOWED_MEDIA_TYPES = ["image"];
+
 	return (
 		<InspectorControls>
-			<PanelBody title={__("Content", "ctx-blocks")}>
+			<PanelBody title={__("Display", "ctx-sermons")}>
+				<p>
+					{__(
+						"Select an image to display when the sermon has no own",
+						"ctx-sermons",
+					)}
+				</p>
+				<MediaUploadCheck>
+					<MediaUpload
+						onSelect={(media) => {
+							setAttributes({
+								mediaId: media.id,
+								mediaUrl: media.sizes.medium.url,
+							});
+						}}
+						allowedTypes={ALLOWED_MEDIA_TYPES}
+						value={mediaId}
+						render={({ open }) => (
+							<div>
+								{mediaUrl && <img src={mediaUrl} onClick={open} />}
+								<Button variant="secondary" size="small" onClick={open}>
+									{mediaId
+										? __("Replace Image", "ctx-sermons")
+										: __("Select Image", "ctx-sermons")}
+								</Button>
+							</div>
+						)}
+					/>
+				</MediaUploadCheck>
+			</PanelBody>
+			<PanelBody title={__("Content", "ctx-sermons")}>
 				<CheckboxControl
-					label={__("Show Date", "ctx-blocks")}
+					label={__("Show Date", "ctx-sermons")}
 					checked={showDate}
 					onChange={(showDate) => setAttributes({ showDate })}
 				/>
 				<CheckboxControl
-					label={__("Show Speaker", "ctx-blocks")}
+					label={__("Show Speaker", "ctx-sermons")}
 					checked={showSpeaker}
 					onChange={(showSpeaker) => setAttributes({ showSpeaker })}
 				/>
 				<CheckboxControl
-					label={__("Show Title", "ctx-blocks")}
+					label={__("Show Title", "ctx-sermons")}
 					checked={showTitle}
 					onChange={(showTitle) => setAttributes({ showTitle })}
 				/>
 				<CheckboxControl
-					label={__("Show Audio", "ctx-blocks")}
+					label={__("Show Audio", "ctx-sermons")}
 					checked={showAudio}
 					onChange={(showAudio) => setAttributes({ showAudio })}
 				/>
 				<CheckboxControl
-					label={__("Show Series", "ctx-blocks")}
+					label={__("Show Series", "ctx-sermons")}
 					checked={showSeries}
 					onChange={(showSeries) => setAttributes({ showSeries })}
 				/>
 				<CheckboxControl
-					label={__("Show Description", "ctx-blocks")}
+					label={__("Show Description", "ctx-sermons")}
 					checked={showDescription}
 					onChange={(showDescription) => setAttributes({ showDescription })}
 				/>
 				<CheckboxControl
-					label={__("Show Image", "ctx-blocks")}
+					label={__("Show Image", "ctx-sermons")}
 					checked={showImage}
 					onChange={(showImage) => setAttributes({ showImage })}
 				/>
 				<CheckboxControl
-					label={__("Show Bible Passage", "ctx-blocks")}
+					label={__("Show Bible Passage", "ctx-sermons")}
 					checked={showBiblePassage}
 					onChange={(showBiblePassage) => setAttributes({ showBiblePassage })}
+				/>
+				<CheckboxControl
+					label={__("Show Link", "ctx-sermons")}
+					checked={showLink}
+					onChange={(showLink) => setAttributes({ showLink })}
 				/>
 			</PanelBody>
 		</InspectorControls>

@@ -1,0 +1,276 @@
+# Copyright (C) 2023 Thomas Gollenia
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: CTX Sermons 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ctx-sermons\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Deutsch (Österreich)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-12-29T09:26:40+00:00\n"
+"PO-Revision-Date: 2024-02-27 07:13+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: ctx-sermons\n"
+"Language: de_AT\n"
+"Plural-Forms: nplurals=2; plural=n != 1;"
+
+#. Description of the plugin
+msgid "A plugin to manage sermons for a Church website"
+msgstr "Ein Plugin zur Verwaltung von Predigten für eine Kirchen-Website"
+
+#: lib/SermonPost.php:107
+msgid "Add New Preacher"
+msgstr "Prediger hinzufügen"
+
+#: lib/SermonPost.php:80
+msgid "Add New Serie"
+msgstr "Neue Serie hinzufügen"
+
+#: lib/SermonPost.php:115
+msgid "Add or remove preachers"
+msgstr "Prediger hinzufügen oder entfernen"
+
+#: lib/SermonPost.php:88
+msgid "Add or remove series"
+msgstr "Serien hinzufügen oder entfernen"
+
+#: build/index.js:1
+msgid "Audio"
+msgstr "Audio"
+
+#: build/index.js:1
+msgid "Bible verse"
+msgstr "Bibelvers"
+
+#: build/blocks/sermon-list/block.json
+msgctxt "block description"
+msgid "A browsable list of sermons."
+msgstr "Eine durchsuchbare Liste von Predigten."
+
+#: build/blocks/latest-sermon/block.json
+msgctxt "block description"
+msgid "Show the last held sermon"
+msgstr "Zeige die zuletzt gehaltene Predigt"
+
+#: build/blocks/latest-sermon/block.json
+#, fuzzy
+#| msgid "Latest Sermons"
+msgctxt "block title"
+msgid "Latest Sermon"
+msgstr "Neueste Predigt"
+
+#: build/blocks/sermon-list/block.json
+msgctxt "block title"
+msgid "Sermon List"
+msgstr "Predigtliste"
+
+#: build/index.js:1
+msgid "Change Audio"
+msgstr "Audio ändern"
+
+#: lib/SermonPost.php:116
+msgid "Choose from the most used preachers"
+msgstr "Aus den am häufigsten verwendeten Predigern auswählen"
+
+#: lib/SermonPost.php:89
+msgid "Choose from the most used series"
+msgstr "Aus den am häufigsten verwendeten Serien auswählen"
+
+#: build/list.js:1
+msgid "Clear"
+msgstr "Leeren"
+
+#. Plugin Name of the plugin
+msgid "CTX Sermons"
+msgstr "CTX Sermons"
+
+#: lib/SermonPost.php:140 build/index.js:1
+msgid "Date"
+msgstr "Datum"
+
+#: lib/SermonPost.php:111
+msgid "Edit Preacher"
+msgstr "Prediger bearbeiten"
+
+#: lib/SermonPost.php:84
+msgid "Edit Series"
+msgstr "Serie bearbeiten"
+
+#: build/index.js:1
+msgid "Limit"
+msgstr "Limit"
+
+#: build/list.js:1
+msgid "Next"
+msgstr "Nächste"
+
+#: build/index.js:1
+msgid "No audio file selected"
+msgstr "Keine Audiodatei ausgewählt"
+
+#: lib/SermonPost.php:172
+msgid "No date"
+msgstr "Kein Datum"
+
+#: lib/SermonPost.php:118
+msgid "No preachers"
+msgstr "Keine Prediger"
+
+#: lib/SermonPost.php:117
+msgid "No preachers found"
+msgstr "Keine Prediger gefunden"
+
+#: lib/SermonPost.php:156
+msgid "No serie"
+msgstr "Keine Serie"
+
+#: lib/SermonPost.php:91
+msgid "No series"
+msgstr "Keine Serie"
+
+#: lib/SermonPost.php:90
+msgid "No series found"
+msgstr "Keine Serie gefunden"
+
+#: build/index.js:1
+#| msgid "No sermon found"
+msgid "No sermons found"
+msgstr "Keine Predigt gefunden"
+
+#: lib/SermonPost.php:164
+msgid "No speaker"
+msgstr "Kein Prediger"
+
+#: build/list.js:1
+msgid "of"
+msgstr "von"
+
+#: build/list.js:1
+msgid "Page"
+msgstr "Seite"
+
+#: build/index.js:1
+msgid "Per Row"
+msgstr "Pro Reihe"
+
+#: lib/SermonPost.php:106
+msgid "Preacher"
+msgstr "Prediger"
+
+#: lib/SermonPost.php:108
+msgid "Preacher Name"
+msgstr "Predigername"
+
+#: lib/SermonPost.php:105
+msgid "Preachers"
+msgstr "Prediger"
+
+#: build/list.js:1
+msgid "Previous"
+msgstr "Vorherige"
+
+#: lib/SermonPost.php:114
+msgid "Separate preachers with commas"
+msgstr "Prediger mit Kommas trennen"
+
+#: lib/SermonPost.php:87
+msgid "Separate series with commas"
+msgstr "Serien mit Kommas trennen"
+
+#: lib/SermonPost.php:138 build/index.js:1
+msgid "Series"
+msgstr "Serie"
+
+#: lib/SermonPost.php:81
+msgid "Series Name"
+msgstr "Serienname"
+
+#: lib/SermonPost.php:24
+msgid "Sermon"
+msgstr "Predigt"
+
+#: build/index.js:1
+msgid "Sermon Details"
+msgstr "Predigtdetails"
+
+#: build/index.js:1
+msgid "Sermon Limit"
+msgstr "Predigtlimit"
+
+#: build/index.js:1
+msgid "Sermon List"
+msgstr "Predigtliste"
+
+#: lib/SermonPost.php:78 lib/SermonPost.php:79 build/index.js:1
+msgid "Sermon Series"
+msgstr "Predigtserien"
+
+#: lib/SermonPost.php:23
+msgid "Sermons"
+msgstr "Predigten"
+
+#: build/index.js:1
+msgid "Show Audio"
+msgstr "Audio anzeigen"
+
+#: build/index.js:1
+msgid "Show Bible Passage"
+msgstr "Bibelstelle anzeigen"
+
+#: build/index.js:1
+msgid "Show Date"
+msgstr "Datum anzeigen"
+
+#: build/index.js:1
+msgid "Show Description"
+msgstr "Beschreibung anzeigen"
+
+#: build/index.js:1
+msgid "Show Image"
+msgstr "Bild anzeigen"
+
+#: build/index.js:1
+msgid "Show Series"
+msgstr "Serie anzeigen"
+
+#: build/index.js:1
+msgid "Show Speaker"
+msgstr "Prediger anzeigen"
+
+#: build/index.js:1
+msgid "Show Title"
+msgstr "Titel anzeigen"
+
+#: lib/SermonPost.php:139 build/index.js:1
+msgid "Speaker"
+msgstr "Prediger"
+
+#. Author of the plugin
+msgid "Thomas Gollenia"
+msgstr "Thomas Gollenia"
+
+#: lib/SermonPost.php:137 build/index.js:1
+msgid "Title"
+msgstr "Titel"
+
+#: lib/SermonPost.php:112
+msgid "Update Preacher"
+msgstr "Prediger aktualisieren"
+
+#: lib/SermonPost.php:85
+msgid "Update Series"
+msgstr "Serie aktualisieren"
+
+#: build/index.js:1
+msgid "Upload Audio"
+msgstr "Audio hochladen"
+
+#: lib/SermonPost.php:113
+msgid "View Preacher"
+msgstr "Prediger anzeigen"
+
+#: lib/SermonPost.php:86
+msgid "View Series"
+msgstr "Serie anzeigen"

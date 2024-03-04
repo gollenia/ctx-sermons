@@ -1,6 +1,10 @@
-import { InspectorControls } from "@wordpress/block-editor";
-
 import {
+	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
+} from "@wordpress/block-editor";
+import {
+	Button,
 	CheckboxControl,
 	ComboboxControl,
 	PanelBody,
@@ -21,8 +25,10 @@ export default function Inspector({ attributes, setAttributes }) {
 		showDescription,
 		showImage,
 		showBiblePassage,
+		showLink,
 		limit,
-		perRow,
+		mediaId,
+		mediaUrl,
 		sermonSerie,
 	} = attributes;
 
@@ -46,8 +52,6 @@ export default function Inspector({ attributes, setAttributes }) {
 		}));
 	}, []);
 
-	console.log(availableSermonSeries);
-
 	const setCategory = (value) => {
 		if (!value) {
 			setAttributes({ sermonSerie: "" });
@@ -56,8 +60,34 @@ export default function Inspector({ attributes, setAttributes }) {
 		setAttributes({ sermonSerie: value });
 	};
 
+	const ALLOWED_MEDIA_TYPES = ["image"];
+
 	return (
 		<InspectorControls>
+			<PanelBody title={__("Appearance", "ctx-sermons")}>
+				<MediaUploadCheck>
+					<MediaUpload
+						onSelect={(media) => {
+							setAttributes({
+								mediaId: media.id,
+								mediaUrl: media.sizes.medium.url,
+							});
+						}}
+						allowedTypes={ALLOWED_MEDIA_TYPES}
+						value={mediaId}
+						render={({ open }) => (
+							<div>
+								{mediaUrl && <img src={mediaUrl} onClick={open} />}
+								<Button variant="secondary" size="small" onClick={open}>
+									{mediaId
+										? __("Replace Image", "ctx-sermons")
+										: __("Select Image", "ctx-sermons")}
+								</Button>
+							</div>
+						)}
+					/>
+				</MediaUploadCheck>
+			</PanelBody>
 			<PanelBody title={__("Sermon Limit", "ctx-sermons")}>
 				<RangeControl
 					label={__("Limit", "ctx-sermons")}
@@ -65,13 +95,6 @@ export default function Inspector({ attributes, setAttributes }) {
 					onChange={(limit) => setLimit(limit)}
 					min={1}
 					max={20}
-				/>
-				<RangeControl
-					label={__("Per Row", "ctx-sermons")}
-					value={perRow}
-					onChange={(perRow) => setAttributes({ perRow })}
-					min={1}
-					max={limit > 4 ? 4 : limit}
 				/>
 
 				<ComboboxControl
@@ -129,6 +152,11 @@ export default function Inspector({ attributes, setAttributes }) {
 					label={__("Show Description", "ctx-sermons")}
 					checked={showDescription}
 					onChange={() => setAttributes({ showDescription: !showDescription })}
+				/>
+				<CheckboxControl
+					label={__("Show Link", "ctx-sermons")}
+					checked={showLink}
+					onChange={() => setAttributes({ showLink: !showLink })}
 				/>
 			</PanelBody>
 		</InspectorControls>
