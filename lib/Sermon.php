@@ -42,7 +42,7 @@ class Sermon {
 		$this->id = $post->ID;
 	}
 
-	public function get_name_and_id(array | bool $terms) {
+	public function get_name_and_id($terms) {
 		if(!$terms) {
 			return array();
 		}
