@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3.4
+
+Fixed missing series to crash the modal
+
 ### 0.3.3
 
 Update Check only once a day
