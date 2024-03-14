@@ -25,7 +25,7 @@ if( ! class_exists( 'Update' ) ) {
 			$this->plugin_slug = $plugin_slug;
 			$this->version = $data['Version'];
 			$this->cache_key = 'ctx_plugin_update_' . $this->plugin_slug;
-			$this->cache_allowed = false;
+			$this->cache_allowed = !$WP_DEBUG;
 			
 			add_filter( 'plugins_api', array( $this, 'info' ), 20, 3 );
 			add_filter( 'site_transient_update_plugins', array( $this, 'transient_update' ) );
