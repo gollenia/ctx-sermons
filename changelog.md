@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3.5
+
+Correct WP_DEBUG Flag
+
 ### 0.3.4
 
 Fixed missing series to crash the modal
