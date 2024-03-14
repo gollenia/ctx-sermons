@@ -21,9 +21,10 @@ require_once __DIR__ . '/lib/SermonPost.php';
 require_once __DIR__ . '/lib/SermonREST.php';
 require_once __DIR__ . '/lib/Sermon.php';
 require_once __DIR__ . '/lib/Sermons.php';
-require_once __DIR__ . '/lib/Update.php';
+//require_once __DIR__ . '/lib/Update.php';
+require_once __DIR__ . '/lib/Import.php';
 
-
+SermonImport::init();
 function ctx_sermons_init() {
 
 	$script_asset = __DIR__ . '/build/index.asset.php';
@@ -99,4 +100,4 @@ add_action( 'init', 'ctx_sermons_init' );
 add_action( 'plugins_loaded', 'ctx_sermons_load_textdomain' );
 
 
-Contexis\Update::init('ctx-sermons');
+//Contexis\Update::init('ctx-sermons');
