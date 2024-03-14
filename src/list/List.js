@@ -158,7 +158,7 @@ const List = (props) => {
 								>
 									{sermon.image.thumbnail || altImage ? (
 										<img
-											src={sermon.image.thumbnail || altImage}
+											src={sermon.image?.thumbnail || altImage}
 											alt={sermon.title}
 										/>
 									) : (
