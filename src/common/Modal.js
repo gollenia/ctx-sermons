@@ -44,7 +44,9 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 							}`}
 						>
 							{(sermon?.image?.large || altImage?.large) && (
-								<img src={sermon.image.large || altImage.large.source_url} />
+								<img
+									src={sermon?.image?.large || altImage?.large?.source_url}
+								/>
 							)}
 							<span onClick={() => setSermon(null)} className="close">
 								<svg
