@@ -13,9 +13,12 @@ const Pagination = ({
 		pageArray.push(i);
 	}
 
-	console.log(pageArray);
-
-	console.log(pageArray, maxPages);
+	const shortenedPageArray = pageArray.filter(
+		(page) =>
+			page === 1 ||
+			page === maxPages ||
+			(page >= currentPage - 2 && page <= currentPage + 2),
+	);
 
 	if (!pageArray.length) {
 		return null;
@@ -33,7 +36,7 @@ const Pagination = ({
 						{__("Previous", "ctx-sermons")}
 					</button>
 				</li>
-				{pageArray.map((number) => (
+				{shortenedPageArray.map((number) => (
 					<li key={number} className="page-item">
 						<button
 							onClick={() => onPaginate(number)}

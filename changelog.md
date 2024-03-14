@@ -1,5 +1,9 @@
 ## Changelog
 
+### 0.3.6
+
+Fixed Pagination
+
 ### 0.3.5
 
 Correct WP_DEBUG Flag
