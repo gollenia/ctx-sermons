@@ -133,7 +133,11 @@ const Cards = (props) => {
 				</div>
 			)}
 
-			<Modal sermon={currentSermon} setSermon={setCurrentSermon} />
+			<Modal
+				sermon={currentSermon}
+				setSermon={setCurrentSermon}
+				altImage={mediaThumbnail}
+			/>
 		</div>
 	);
 };
