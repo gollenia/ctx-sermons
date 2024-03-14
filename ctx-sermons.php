@@ -4,7 +4,7 @@
  * Description:       A plugin to manage sermons for a Church website
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.3.2
+ * Version:           0.3.3
  * Author:            Thomas Gollenia
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ require_once __DIR__ . '/lib/SermonPost.php';
 require_once __DIR__ . '/lib/SermonREST.php';
 require_once __DIR__ . '/lib/Sermon.php';
 require_once __DIR__ . '/lib/Sermons.php';
-//require_once __DIR__ . '/lib/Update.php';
+require_once __DIR__ . '/lib/Update.php';
 require_once __DIR__ . '/lib/Import.php';
 
 SermonImport::init();
@@ -100,4 +100,4 @@ add_action( 'init', 'ctx_sermons_init' );
 add_action( 'plugins_loaded', 'ctx_sermons_load_textdomain' );
 
 
-//Contexis\Update::init('ctx-sermons');
+Contexis\Update::init('ctx-sermons');

@@ -1,5 +1,13 @@
 ## Changelog
 
+### 0.3.3
+
+Update Check only once a day
+
+### 0.3.2
+
+Import Function added
+
 ### 0.3.1
 
 Play buttons padding fixed
