@@ -62,8 +62,8 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 						<AudioPlayer
 							audio={sermon.audio.url}
 							title={sermon?.title}
-							artist={sermon.speaker[0].name}
-							album={sermon.series[0].title}
+							artist={sermon.speaker[0]?.name}
+							album={sermon.series[0]?.title}
 							cover={
 								sermon.image?.medium || altImage?.thumbnail.source_url || ""
 							}
