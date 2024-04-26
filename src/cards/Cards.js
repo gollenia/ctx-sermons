@@ -75,6 +75,7 @@ const Cards = (props) => {
 			) : (
 				<div className="ctx-sermons-cards">
 					{sermons.map((sermon) => {
+						console.log(mediaThumbnail?.large);
 						return (
 							<div key={sermon.id} className="ctx-sermons-card">
 								{showImage && (
@@ -82,7 +83,10 @@ const Cards = (props) => {
 										{(sermon.image.large || mediaThumbnail?.large) && (
 											<div className="ctx-sermons-card-image">
 												<img
-													src={sermon.image.large || mediaThumbnail?.large}
+													src={
+														sermon.image.large ||
+														mediaThumbnail?.large?.source_url
+													}
 												/>
 											</div>
 										)}
@@ -104,7 +108,7 @@ const Cards = (props) => {
 									)}
 									{showSeries && sermon.series?.length > 0 && (
 										<p className="ctx-sermons-card-series">
-											{__("Series", "ctx-sermons")}: {sermon.series[0].name}
+											{__("Series", "ctx-sermons")}: {sermon.series[0]?.name}
 										</p>
 									)}
 								</div>
