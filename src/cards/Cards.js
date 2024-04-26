@@ -62,7 +62,6 @@ const Cards = (props) => {
 			parse: false,
 		}).then((response) => {
 			response.json().then((data) => {
-				console.log(data);
 				setMediaThumbnail(data.media_details.sizes);
 			});
 		});
@@ -75,7 +74,6 @@ const Cards = (props) => {
 			) : (
 				<div className="ctx-sermons-cards">
 					{sermons.map((sermon) => {
-						console.log(mediaThumbnail?.large);
 						return (
 							<div key={sermon.id} className="ctx-sermons-card">
 								{showImage && (

@@ -1,6 +1,5 @@
 import { createRoot } from "@wordpress/element";
 import Cards from "./cards/Cards";
-console.log("cards.js");
 document.addEventListener("DOMContentLoaded", function () {
 	const rootElement = document.getElementById("ctx-sermon-cards");
 	const attributes = JSON.parse(rootElement.dataset.attributes);

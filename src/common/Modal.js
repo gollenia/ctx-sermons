@@ -24,8 +24,6 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 		unitDisplay: "short",
 	}).format(size.value);
 
-	console.log(altImage);
-
 	return (
 		<div
 			className={`ctx-sermon-player-modal ${sermon ? "is-open" : ""}`}

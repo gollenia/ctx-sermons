@@ -60,7 +60,6 @@ function AudioPlayer(props) {
 	};
 
 	const onLoadedMetadata = () => {
-		console.log(title, artist, album);
 		navigator.mediaSession.metadata = new MediaMetadata({
 			title,
 			artist,
