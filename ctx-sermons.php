@@ -4,7 +4,7 @@
  * Description:       A plugin to manage sermons for a Church website
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.3.7
+ * Version:           0.3.8
  * Author:            Thomas Gollenia
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html

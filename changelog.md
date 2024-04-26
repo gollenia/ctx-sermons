@@ -1,5 +1,10 @@
 ## Changelog
 
+### 0.3.8
+
+Common image fixed
+Image on cards are not squeezed
+
 ### 0.3.6
 
 Fixed Pagination
