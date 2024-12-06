@@ -7,7 +7,7 @@
  */
 import { Button, TextControl } from "@wordpress/components";
 import { select } from "@wordpress/data";
-import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
+import { PluginDocumentSettingPanel } from "@wordpress/editor";
 
 import { MediaUpload, MediaUploadCheck } from "@wordpress/block-editor";
 import { useEntityProp } from "@wordpress/core-data";
@@ -54,14 +54,14 @@ const SermonMeta = () => {
 							{meta?._sermon_audio ? (
 								<>
 									<p>{file?.title?.rendered}</p>
-									<Button onClick={open} isSmall={true} variant="secondary">
+									<Button onClick={open} size="small" variant="secondary">
 										{__("Change Audio", "ctx-sermons")}
 									</Button>
 								</>
 							) : (
 								<div>
 									<p>{__("No audio file selected", "ctx-sermons")}</p>
-									<Button onClick={open} isSmall={true} variant="primary">
+									<Button onClick={open} size="small" variant="primary">
 										{__("Upload Audio", "ctx-sermons")}
 									</Button>
 								</div>
