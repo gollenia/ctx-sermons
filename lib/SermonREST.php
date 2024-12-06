@@ -14,11 +14,13 @@ class SermonREST {
 		register_rest_route('ctx-sermons/v2', '/list', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'get_rest_list'),
+			'permission_callback' => '__return_true',
 		));
 
 		register_rest_route('ctx-sermons/v2', '/sermon/(?P<id>\d+)', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'get_rest_sermon_by_id'),
+			'permission_callback' => '__return_true',
 		));
 	}
 
