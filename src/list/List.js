@@ -47,7 +47,7 @@ const List = (props) => {
 
 	useEffect(() => {
 		apiFetch({
-			path: addQueryArgs("/ctx-sermons/v2/list", query),
+			path: addQueryArgs("/ctx-sermons/v2/sermons", query),
 			method: "GET",
 			parse: false,
 		}).then((response) => {

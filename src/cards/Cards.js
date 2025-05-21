@@ -1,5 +1,3 @@
-import React from "react";
-
 import apiFetch from "@wordpress/api-fetch";
 import { useEffect, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
@@ -44,7 +42,7 @@ const Cards = (props) => {
 
 	useEffect(() => {
 		apiFetch({
-			path: addQueryArgs("/ctx-sermons/v2/list", query),
+			path: addQueryArgs("/ctx-sermons/v2/sermons", query),
 			method: "GET",
 			parse: false,
 		}).then((response) => {
@@ -56,6 +54,7 @@ const Cards = (props) => {
 			});
 		});
 
+		if (!mediaId) return;
 		apiFetch({
 			path: `/wp/v2/media/${mediaId}`,
 			method: "GET",
@@ -138,7 +137,7 @@ const Cards = (props) => {
 			<Modal
 				sermon={currentSermon}
 				setSermon={setCurrentSermon}
-				altImage={mediaThumbnail}
+				mediaThumbnail={mediaThumbnail}
 			/>
 		</div>
 	);

@@ -96,6 +96,14 @@ export default function Inspector({ attributes, setAttributes }) {
 					min={1}
 					max={20}
 				/>
+				<RangeControl
+					label={__("Columns", "ctx-sermons")}
+					value={attributes.perRow}
+					onChange={(perRow) => setAttributes({ perRow })}
+					min={1}
+					max={limit}
+					step={1}
+				/>
 
 				<ComboboxControl
 					label={__("Sermon Series", "ctx-sermons")}

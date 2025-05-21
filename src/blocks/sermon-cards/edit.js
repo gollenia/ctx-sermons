@@ -26,6 +26,7 @@ export default function Edit(props) {
 		showLink,
 		limit,
 		sermonSerie,
+		perRow,
 	} = attributes;
 
 	const latestSermons = useSelect((select) => {
@@ -103,7 +104,7 @@ export default function Edit(props) {
 							</CardBody>
 							<CardFooter>
 								{showAudio && latestSermon?.meta?._sermon_audio && (
-									<button onClick={() => console.log(audio)}>
+									<button onClick={() => console.log("play")}>
 										<i className="fas fa-play"></i>PLAY
 									</button>
 								)}

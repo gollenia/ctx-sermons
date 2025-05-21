@@ -4,7 +4,7 @@ import AudioPlayer from "./player.js";
 
 ("@contexis/filesize");
 
-const Modal = ({ sermon, setSermon, altImage }) => {
+const Modal = ({ sermon, setSermon, mediaThumbnail }) => {
 	const [loading, setLoading] = useState(true);
 
 	const backdropClickHandler = (event) => {
@@ -24,6 +24,9 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 		unitDisplay: "short",
 	}).format(size.value);
 
+	const imageUrl =
+		sermon?.image?.large || mediaThumbnail?.large?.source_url || "";
+
 	return (
 		<div
 			className={`ctx-sermon-player-modal ${sermon ? "is-open" : ""}`}
@@ -36,14 +39,16 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 					<div className="content">
 						<div
 							className={`header ${
-								sermon?.image?.large || altImage?.large
+								sermon?.image?.large || mediaThumbnail?.large
 									? "has-image"
 									: "has-no-image"
 							}`}
 						>
-							{(sermon?.image?.large || altImage?.large) && (
+							{(sermon?.image?.large || mediaThumbnail?.large) && (
 								<img
-									src={sermon?.image?.large || altImage?.large?.source_url}
+									src={
+										sermon?.image?.large || mediaThumbnail?.large?.source_url
+									}
 								/>
 							)}
 							<span onClick={() => setSermon(null)} className="close">
@@ -64,9 +69,7 @@ const Modal = ({ sermon, setSermon, altImage }) => {
 							title={sermon?.title}
 							artist={sermon.speaker[0]?.name}
 							album={sermon.series[0]?.title}
-							cover={
-								sermon.image?.medium || altImage?.thumbnail.source_url || ""
-							}
+							cover={imageUrl}
 						/>
 					</div>
 				)}

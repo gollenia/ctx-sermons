@@ -58,6 +58,10 @@
 		"mediaUrl": {
 			"type": "string",
 			"default": ""
+		},
+		"perRow": {
+			"type": "number",
+			"default": 1
 		}
 	},
 	"example": {},
