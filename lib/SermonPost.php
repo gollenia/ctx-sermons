@@ -1,5 +1,7 @@
 <?php
 
+namespace Contexis\Sermons;
+
 class SermonPost {
 
 	public static function init () {

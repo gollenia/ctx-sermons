@@ -1,5 +1,7 @@
 <?php
 
+namespace Contexis\Sermons;
+
 class Sermon {
 
 	public $title;

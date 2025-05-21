@@ -1,4 +1,7 @@
 <?php
+
+namespace Contexis\Sermons;
+
 class Sermons {
 
 	public $sermons = array();

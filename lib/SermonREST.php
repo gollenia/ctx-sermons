@@ -1,5 +1,7 @@
 <?php 
 
+namespace Contexis\Sermons;
+
 class SermonREST {
 
 	public static function init() {
@@ -11,7 +13,7 @@ class SermonREST {
 	}
 
 	public function register_sermon_routes() {
-		register_rest_route('ctx-sermons/v2', '/list', array(
+		register_rest_route('ctx-sermons/v2', '/sermons', array(
 			'methods' => 'GET',
 			'callback' => array($this, 'get_rest_list'),
 			'permission_callback' => '__return_true',
@@ -28,10 +30,10 @@ class SermonREST {
 		$id = $request['id'];
 		$post = get_post($id);
 		if(!$post) {
-			return new WP_REST_Response(array(), 404);
+			return new \WP_REST_Response(array(), 404);
 		}
 		$sermon = new Sermon($post);
-		return new WP_REST_Response($sermon, 200);
+		return new \WP_REST_Response($sermon, 200);
 	}
 
 
@@ -67,7 +69,7 @@ class SermonREST {
 	public function return_list(Sermons $sermons, $filter) {
 		header('X-WP-TotalPages: ' . $sermons->totalPages);
 		header('X-WP-Total: ' . $sermons->total);
-		return new WP_REST_Response($sermons->filter($filter), 200);
+		return new \WP_REST_Response($sermons->filter($filter), 200);
 	}
 
 
