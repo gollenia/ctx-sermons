@@ -3,8 +3,8 @@
  * Plugin Name:       CTX Sermons
  * Description:       A plugin to manage sermons for a Church website
  * Requires at least: 6.1
- * Requires PHP:      7.0
- * Version:           0.3.8
+ * Requires PHP:      8.0
+ * Version:           1.0.1
  * Author:            Thomas Gollenia
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,6 +12,8 @@
  *
  * @package           create-block
  */
+
+use Contexis\Sermons\Update;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -21,8 +23,13 @@ require_once __DIR__ . '/lib/SermonPost.php';
 require_once __DIR__ . '/lib/SermonREST.php';
 require_once __DIR__ . '/lib/Sermon.php';
 require_once __DIR__ . '/lib/Sermons.php';
+require_once __DIR__ . '/lib/Update.php';
 
-
+new \Contexis\Sermons\Update(
+	__FILE__,
+	'gollenia',
+	'ctx-sermons'
+);
 
 //SermonImport::init();
 function ctx_sermons_init() {
