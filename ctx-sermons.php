@@ -4,7 +4,7 @@
  * Description:       A plugin to manage sermons for a Church website
  * Requires at least: 6.1
  * Requires PHP:      8.0
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Thomas Gollenia
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@
  *
  * @package           create-block
  */
-
+ 
 use Contexis\Sermons\Update;
 
 if ( ! defined( 'ABSPATH' ) ) {
