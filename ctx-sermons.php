@@ -13,10 +13,9 @@
  * @package           create-block
  */
  
-use Contexis\Sermons\Update;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
 require_once __DIR__ . '/lib/SermonPost.php';
